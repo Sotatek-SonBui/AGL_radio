@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Radio
+Comment=Radio
+GenericName=Radio
+Exec=radio
+Icon=radio
+Terminal=false
+Type=Application
+Categories=System;
+StartupNotify=true

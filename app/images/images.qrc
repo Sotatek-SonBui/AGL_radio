@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>AGL_MediaPlayer_BackArrow.svg</file>
+        <file>AGL_MediaPlayer_ForwardArrow.svg</file>
+        <file>AGL_MediaPlayer_Player_Pause.svg</file>
+        <file>AGL_MediaPlayer_Player_Play.svg</file>
+        <file>FM_Icons_AM.svg</file>
+        <file>FM_Icons_FM.svg</file>
+        <file>HMI_Radio_Equalizer.svg</file>
+    </qresource>
+</RCC>
