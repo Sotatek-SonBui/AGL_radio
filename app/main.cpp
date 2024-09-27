@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 	}
 	if (!settingsFound)
 	{
-		pSettings = new QSettings("AGL", "radio-presets");
+		pSettings = new QSettings("AGL", "radio-preset");
 	}
 
 	QList<QObject *> presetDataList;
