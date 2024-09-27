@@ -28,7 +28,7 @@
 #include <RadioClient.h>
 #include "PresetDataObject.h"
 
-#define APP_DATA_PRESETS_PATH	"/app-data/radio/presets.conf"
+#define APP_DATA_PRESETS_PATH "/app-data/radio/presets.conf"
 
 int main(int argc, char *argv[])
 {
@@ -52,28 +52,32 @@ int main(int argc, char *argv[])
 	QSettings *pSettings = NULL;
 	char *p = getenv("HOME");
 	bool settingsFound = false;
-	if(p) {
+	if (p)
+	{
 		struct stat statbuf;
 		std::string presets(p);
 		presets += APP_DATA_PRESETS_PATH;
-		if(stat(presets.c_str(), &statbuf) == 0) {
+		if (stat(presets.c_str(), &statbuf) == 0)
+		{
 			QString confPath = p;
 			confPath.append(APP_DATA_PRESETS_PATH);
 			pSettings = new QSettings(confPath, QSettings::NativeFormat);
 			settingsFound = true;
 		}
 	}
-	if(!settingsFound) {
+	if (!settingsFound)
+	{
 		pSettings = new QSettings("AGL", "radio-presets");
 	}
 
-	QList<QObject*> presetDataList;
+	QList<QObject *> presetDataList;
 	int size = pSettings->beginReadArray("fmPresets");
-	for (int i = 0; i < size; ++i) {
+	for (int i = 0; i < size; ++i)
+	{
 		pSettings->setArrayIndex(i);
 		presetDataList.append(new PresetDataObject(pSettings->value("title").toString(),
-							   pSettings->value("frequency").toInt(),
-							   1));
+												   pSettings->value("frequency").toInt(),
+												   2));
 	}
 	pSettings->endArray();
 

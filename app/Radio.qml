@@ -128,13 +128,13 @@ ApplicationWindow {
                         Label {
                             anchors.left: parent.left
                             anchors.bottom: parent.top
-                            font.pixelSize: 30
+                            font.pixelSize: 32
                             text: freq2str(radio.minFrequency)
                         }
                         Label {
                             anchors.right: parent.right
                             anchors.bottom: parent.top
-                            font.pixelSize: 30
+                            font.pixelSize: 32
                             text: freq2str(radio.maxFrequency)
                         }
                     }
@@ -142,7 +142,7 @@ ApplicationWindow {
                         Layout.fillHeight: true
 
                         Label {
-                            text: 'TEXT'
+                            text: 'TUNE'
                         }
 
                         ImageButton {
@@ -201,7 +201,7 @@ ApplicationWindow {
 
                         Label {
                             id: scanLabel
-                            text: 'TEST'
+                            text: 'SCAN'
                             color: radio.scanning ? '#59FF7F' : '#FFFFFF'
                         }
 
