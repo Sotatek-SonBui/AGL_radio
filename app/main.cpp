@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 	}
 	if (!settingsFound)
 	{
-		pSettings = new QSettings("AGL", "radio-preset");
+		pSettings = new QSettings("AGL", "radio-presets");
 	}
 
 	QList<QObject *> presetDataList;
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 		pSettings->setArrayIndex(i);
 		presetDataList.append(new PresetDataObject(pSettings->value("title").toString(),
 												   pSettings->value("frequency").toInt(),
-												   2));
+												   1));
 	}
 	pSettings->endArray();
 
