@@ -32,59 +32,59 @@
 
 int main(int argc, char *argv[])
 {
-	QString graphic_role = QString("radio");
+    QString graphic_role = QString("testapp");
 
-	QGuiApplication app(argc, argv);
-	app.setDesktopFileName(graphic_role);
+    QGuiApplication app(argc, argv);
+    app.setDesktopFileName(graphic_role);
 
-	QQuickStyle::setStyle("AGL");
+    QQuickStyle::setStyle("AGL");
 
-	// Read presets from configuration file
-	//
-	// If HOME is set, use $HOME/app-data/radio/presets.conf if it exists,
-	// else fall back to the QSettings default locations with organization
-	// "AGL" and a file name of radio-presets.conf. See:
-	//
-	// http://doc.qt.io/qt-5/qsettings.html#platform-specific-notes
-	//
-	// for details on the locations and their order of priority.
-	//
-	QSettings *pSettings = NULL;
-	char *p = getenv("HOME");
-	bool settingsFound = false;
-	if (p)
-	{
-		struct stat statbuf;
-		std::string presets(p);
-		presets += APP_DATA_PRESETS_PATH;
-		if (stat(presets.c_str(), &statbuf) == 0)
-		{
-			QString confPath = p;
-			confPath.append(APP_DATA_PRESETS_PATH);
-			pSettings = new QSettings(confPath, QSettings::NativeFormat);
-			settingsFound = true;
-		}
-	}
-	if (!settingsFound)
-	{
-		pSettings = new QSettings("AGL", "radio-presets");
-	}
+    // Read presets from configuration file
+    //
+    // If HOME is set, use $HOME/app-data/radio/presets.conf if it exists,
+    // else fall back to the QSettings default locations with organization
+    // "AGL" and a file name of radio-presets.conf. See:
+    //
+    // http://doc.qt.io/qt-5/qsettings.html#platform-specific-notes
+    //
+    // for details on the locations and their order of priority.
+    //
+    QSettings *pSettings = NULL;
+    char *p = getenv("HOME");
+    bool settingsFound = false;
+    if (p)
+    {
+        struct stat statbuf;
+        std::string presets(p);
+        presets += APP_DATA_PRESETS_PATH;
+        if (stat(presets.c_str(), &statbuf) == 0)
+        {
+            QString confPath = p;
+            confPath.append(APP_DATA_PRESETS_PATH);
+            pSettings = new QSettings(confPath, QSettings::NativeFormat);
+            settingsFound = true;
+        }
+    }
+    if (!settingsFound)
+    {
+        pSettings = new QSettings("AGL", "radio-presets");
+    }
 
-	QList<QObject *> presetDataList;
-	int size = pSettings->beginReadArray("fmPresets");
-	for (int i = 0; i < size; ++i)
-	{
-		pSettings->setArrayIndex(i);
-		presetDataList.append(new PresetDataObject(pSettings->value("title").toString(),
-												   pSettings->value("frequency").toInt(),
-												   1));
-	}
-	pSettings->endArray();
+    QList<QObject *> presetDataList;
+    int size = pSettings->beginReadArray("fmPresets");
+    for (int i = 0; i < size; ++i)
+    {
+        pSettings->setArrayIndex(i);
+        presetDataList.append(new PresetDataObject(pSettings->value("title").toString(),
+                                                   pSettings->value("frequency").toInt(),
+                                                   1));
+    }
+    pSettings->endArray();
 
-	QQmlApplicationEngine engine;
-	QQmlContext *context = engine.rootContext();
-	context->setContextProperty("presetModel", QVariant::fromValue(presetDataList));
-	context->setContextProperty("radio", new RadioClient(context));
-	engine.load(QUrl(QStringLiteral("qrc:/Radio.qml")));
-	return app.exec();
+    QQmlApplicationEngine engine;
+    QQmlContext *context = engine.rootContext();
+    context->setContextProperty("presetModel", QVariant::fromValue(presetDataList));
+    context->setContextProperty("radio", new RadioClient(context));
+    engine.load(QUrl(QStringLiteral("qrc:/Radio.qml")));
+    return app.exec();
 }
